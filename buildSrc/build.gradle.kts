@@ -3,5 +3,6 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
+    maven("https://maven.aliyun.com/repository/public")
+//    mavenCentral()
 }

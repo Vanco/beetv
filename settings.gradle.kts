@@ -1,7 +1,10 @@
 pluginManagement {
     repositories {
         google()
-        mavenCentral()
+//        mavenCentral()
+        maven("https://maven.aliyun.com/repository/public")
+        maven("https://maven.aliyun.com/repository/google")
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
         gradlePluginPortal()
     }
     resolutionStrategy {
@@ -13,20 +16,20 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
         maven("https://repo1.maven.org/maven2/")
         maven("https://androidx.dev/storage/compose-compiler/repository/")
-        //maven("https://artifact.bytedance.com/repository/releases/")
+//        maven("https://artifact.bytedance.com/repository/releases/")
     }
     versionCatalogs {
         create("androidx") { from(files("gradle/androidx.versions.toml")) }
         create("gradleLibs") { from(files("gradle/gradle.versions.toml")) }
     }
 }
-rootProject.name = "BV"
+rootProject.name = "VNet"
 include(":app")
 include(":bili-api")
 include(":bili-subtitle")

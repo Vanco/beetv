@@ -1,16 +1,16 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.gradle.internal.api.ApkVariantOutputImpl
-import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
+//import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
     alias(gradleLibs.plugins.android.application)
     alias(gradleLibs.plugins.compose.compiler)
-    alias(gradleLibs.plugins.firebase.crashlytics)
+//    alias(gradleLibs.plugins.firebase.crashlytics)
     alias(gradleLibs.plugins.google.ksp)
-    alias(gradleLibs.plugins.google.services)
+//    alias(gradleLibs.plugins.google.services)
     alias(gradleLibs.plugins.kotlin.android)
     alias(gradleLibs.plugins.kotlin.serialization)
 }
@@ -48,14 +48,14 @@ android {
 
     flavorDimensions.add("channel")
 
-    productFlavors {
-        create("lite") {
-            dimension = "channel"
-        }
-        create("default") {
-            dimension = "channel"
-        }
-    }
+//    productFlavors {
+//        create("lite") {
+//            dimension = "channel"
+//        }
+//        create("default") {
+//            dimension = "channel"
+//        }
+//    }
 
     buildTypes {
         release {
@@ -73,30 +73,30 @@ android {
                 "proguard-rules.pro"
             )
             applicationIdSuffix = ".debug"
-            configure<CrashlyticsExtension> {
-                mappingFileUploadEnabled = false
-            }
+//            configure<CrashlyticsExtension> {
+//                mappingFileUploadEnabled = false
+//            }
         }
-        create("r8Test") {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            applicationIdSuffix = ".r8test"
-            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
-            configure<CrashlyticsExtension> {
-                mappingFileUploadEnabled = false
-            }
-        }
-        create("alpha") {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
-        }
+//        create("r8Test") {
+//            isMinifyEnabled = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//            applicationIdSuffix = ".r8test"
+//            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
+////            configure<CrashlyticsExtension> {
+////                mappingFileUploadEnabled = false
+////            }
+//        }
+//        create("alpha") {
+//            isMinifyEnabled = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
+//        }
     }
     // https://issuetracker.google.com/issues/260059413
     compileOptions {
@@ -139,7 +139,7 @@ android {
             (this as ApkVariantOutputImpl).apply {
                 val abi = this.filters.find { it.filterType == "ABI" }?.identifier ?: "universal"
                 outputFileName =
-                    "BV_${AppConfiguration.versionCode}_${AppConfiguration.versionName}.${variant.buildType.name}_${variant.flavorName}_$abi.apk"
+                    "VNet_${AppConfiguration.versionCode}_${AppConfiguration.versionName}.${variant.buildType.name}_${variant.flavorName}_$abi.apk"
                 versionNameOverride =
                     "${variant.versionName}.${variant.buildType.name}"
             }
@@ -160,7 +160,7 @@ java {
 dependencies {
     annotationProcessor(androidx.room.compiler)
     ksp(androidx.room.compiler)
-    implementation(platform("${libs.firebase.bom.get()}"))
+//    implementation(platform("${libs.firebase.bom.get()}"))
     implementation(androidx.activity.compose)
     implementation(androidx.core.ktx)
     implementation(androidx.core.splashscreen)
@@ -187,8 +187,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
     implementation(libs.coil.svg)
-    implementation(libs.firebase.analytics.ktx)
-    implementation(libs.firebase.crashlytics.ktx)
+//    implementation(libs.firebase.analytics.ktx)
+//    implementation(libs.firebase.crashlytics.ktx)
     implementation(libs.geetest.sensebot)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)

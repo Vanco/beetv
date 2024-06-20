@@ -1,5 +1,5 @@
 object AppConfiguration {
-    const val appId = "dev.aaa1115910.bv"
+    const val appId = "vanstudio.tv.beetv"
     const val compileSdk = 34
     const val minSdk = 21
     const val targetSdk = 34
