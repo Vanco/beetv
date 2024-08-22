@@ -33,7 +33,7 @@ class FollowingSeasonViewModel(
     private var updating = false
 
     init {
-        followingSeasonType = FollowingSeasonType.Bangumi
+        followingSeasonType = FollowingSeasonType.Cinema
         followingSeasonStatus = FollowingSeasonStatus.All
     }
 

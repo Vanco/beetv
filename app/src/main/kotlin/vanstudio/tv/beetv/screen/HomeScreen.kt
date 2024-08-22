@@ -57,6 +57,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import vanstudio.tv.beetv.screen.user.FollowingSeasonScreen
 
 @Composable
 fun HomeScreen(
@@ -233,7 +234,7 @@ fun HomeScreen(
                             onBackNav = onFocusBackToNav
                         )
 
-                        TopNavItem.Partition -> PartitionScreen()
+                        TopNavItem.Partition -> FollowingSeasonScreen() //PartitionScreen()
                         TopNavItem.Anime -> AnimeScreen(
                             tvLazyListState = animeState,
                             onBackNav = onFocusBackToNav

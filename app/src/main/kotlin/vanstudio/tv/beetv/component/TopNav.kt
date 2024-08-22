@@ -86,6 +86,7 @@ fun TopNav(
             TopNavItem.Search,
             TopNavItem.Recommend,
             TopNavItem.Popular,
+            TopNavItem.Partition,
             TopNavItem.Anime,
             TopNavItem.Dynamics
         )

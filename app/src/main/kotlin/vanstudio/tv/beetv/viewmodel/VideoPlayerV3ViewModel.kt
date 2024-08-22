@@ -199,7 +199,6 @@ class VideoPlayerV3ViewModel(
                 videoPlayRepository.getPlayData(
                     aid = avid,
                     cid = cid,
-                    preferCodec = Prefs.defaultVideoCodec.toBiliApiCodeType(),
                     preferApiType = Prefs.apiType
                 )
             }
@@ -264,6 +263,8 @@ class VideoPlayerV3ViewModel(
             val existDefaultAudio = availableAudio.contains(Prefs.defaultAudio)
             if (!existDefaultAudio) {
                 currentAudio = when {
+                    Prefs.defaultAudio == Audio.ADolbyAtoms && availableAudio.contains(Audio.AHiRes) -> Audio.AHiRes
+                    Prefs.defaultAudio == Audio.AHiRes && availableAudio.contains(Audio.ADolbyAtoms) -> Audio.ADolbyAtoms
                     availableAudio.contains(Audio.A192K) -> Audio.A192K
                     availableAudio.contains(Audio.A132K) -> Audio.A132K
                     availableAudio.contains(Audio.A64K) -> Audio.A64K
@@ -289,7 +290,15 @@ class VideoPlayerV3ViewModel(
     }
 
     fun updateAvailableCodec() {
-        if (Prefs.apiType == ApiType.App) return
+        if (Prefs.apiType == ApiType.App && playData!!.codec.isEmpty()) {
+            // 纠正当前实际播放的编码
+            val videoItem = playData!!.dashVideos
+                .find { it.quality == currentQuality }
+                ?: playData!!.dashVideos.first()
+            currentVideoCodec = VideoCodec.fromCodecId(videoItem.codecId)
+            return
+        }
+
         val supportedCodec = playData!!.codec
         val codecList =
             supportedCodec[currentQuality]!!.mapNotNull { VideoCodec.fromCodecString(it) }
@@ -317,7 +326,10 @@ class VideoPlayerV3ViewModel(
         val videoItem = playData!!.dashVideos.find {
             when (Prefs.apiType) {
                 ApiType.Web -> it.quality == qn && it.codecs!!.startsWith(codec.prefix)
-                ApiType.App -> it.quality == qn
+                ApiType.App -> {
+                    if (playData!!.codec.isEmpty()) it.quality == qn
+                    else it.quality == qn && it.codecs!!.startsWith(codec.prefix)
+                }
             }
         }
         var videoUrl = videoItem?.baseUrl ?: playData!!.dashVideos.first().baseUrl

@@ -1,8 +1,8 @@
 pluginManagement {
     repositories {
-        google()
+//        google()
 //        mavenCentral()
-        maven("https://maven.aliyun.com/repository/public")
+        maven("https://mirrors.cloud.tencent.com/nexus/repository/maven-public")
         maven("https://maven.aliyun.com/repository/google")
         maven("https://maven.aliyun.com/repository/gradle-plugin")
         gradlePluginPortal()
@@ -18,9 +18,9 @@ pluginManagement {
 dependencyResolutionManagement {
 //    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+//        google()
         mavenCentral()
-        maven("https://repo1.maven.org/maven2/")
+        maven("https://mirrors.cloud.tencent.com/nexus/repository/maven-public")
         maven("https://androidx.dev/storage/compose-compiler/repository/")
 //        maven("https://artifact.bytedance.com/repository/releases/")
     }
