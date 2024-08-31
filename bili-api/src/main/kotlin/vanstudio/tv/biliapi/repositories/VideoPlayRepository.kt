@@ -90,6 +90,10 @@ class VideoPlayRepository(
                             }.onFailure {
                                 // dont throw
                                 runCatching { handleGrpcException(it) }
+                                    .onFailure {
+                                        println("get play data failed: [aid=$aid, cid=$cid, preferCodec=$codecType, preferApiType=$preferApiType]")
+                                        it.printStackTrace()
+                                    }
                             }.getOrNull()
                             playUniteReply
                         }
@@ -174,6 +178,10 @@ class VideoPlayRepository(
                             }.onFailure {
                                 // dont throw
                                 runCatching { handleGrpcException(it) }
+                                    .onFailure {
+                                        println("get pgc play data failed: [aid=$aid, cid=$cid, epid=$epid, preferCodec=$codecType, preferApiType=$preferApiType]")
+                                        it.printStackTrace()
+                                    }
                             }.getOrNull()
                             playReply
                         }

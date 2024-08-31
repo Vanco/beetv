@@ -7,23 +7,16 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-//import com.google.firebase.analytics.FirebaseAnalytics
-//import com.google.firebase.analytics.ktx.analytics
-//import com.google.firebase.ktx.Firebase
 import de.schnettler.datastore.manager.DataStoreManager
-import vanstudio.tv.biliapi.http.BiliHttpProxyApi
-import vanstudio.tv.biliapi.repositories.AuthRepository
-import vanstudio.tv.biliapi.repositories.ChannelRepository
-import vanstudio.tv.biliapi.repositories.FavoriteRepository
-import vanstudio.tv.biliapi.repositories.HistoryRepository
-import vanstudio.tv.biliapi.repositories.IndexRepository
-import vanstudio.tv.biliapi.repositories.LoginRepository
-import vanstudio.tv.biliapi.repositories.RecommendVideoRepository
-import vanstudio.tv.biliapi.repositories.SearchRepository
-import vanstudio.tv.biliapi.repositories.SeasonRepository
-import vanstudio.tv.biliapi.repositories.VideoDetailRepository
-import vanstudio.tv.biliapi.repositories.VideoPlayRepository
-import vanstudio.tv.beetv.BuildConfig
+import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.KoinApplication
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
+import org.koin.dsl.module
+import org.slf4j.impl.HandroidLoggerAdapter
 import vanstudio.tv.beetv.dao.AppDatabase
 import vanstudio.tv.beetv.entity.AuthData
 import vanstudio.tv.beetv.entity.db.UserDB
@@ -52,15 +45,18 @@ import vanstudio.tv.beetv.viewmodel.user.FollowingSeasonViewModel
 import vanstudio.tv.beetv.viewmodel.user.HistoryViewModel
 import vanstudio.tv.beetv.viewmodel.user.UpInfoViewModel
 import vanstudio.tv.beetv.viewmodel.video.VideoDetailViewModel
-import kotlinx.coroutines.runBlocking
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.KoinApplication
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
-import org.koin.dsl.module
-import org.slf4j.impl.HandroidLoggerAdapter
+import vanstudio.tv.biliapi.http.BiliHttpProxyApi
+import vanstudio.tv.biliapi.repositories.AuthRepository
+import vanstudio.tv.biliapi.repositories.ChannelRepository
+import vanstudio.tv.biliapi.repositories.FavoriteRepository
+import vanstudio.tv.biliapi.repositories.HistoryRepository
+import vanstudio.tv.biliapi.repositories.IndexRepository
+import vanstudio.tv.biliapi.repositories.LoginRepository
+import vanstudio.tv.biliapi.repositories.RecommendVideoRepository
+import vanstudio.tv.biliapi.repositories.SearchRepository
+import vanstudio.tv.biliapi.repositories.SeasonRepository
+import vanstudio.tv.biliapi.repositories.VideoDetailRepository
+import vanstudio.tv.biliapi.repositories.VideoPlayRepository
 
 class BVApp : Application() {
     companion object {
@@ -68,7 +64,6 @@ class BVApp : Application() {
         lateinit var context: Context
         lateinit var dataStoreManager: DataStoreManager
         lateinit var koinApplication: KoinApplication
-//        lateinit var firebaseAnalytics: FirebaseAnalytics
         var instance: BVApp? = null
 
         fun getAppDatabase(context: Context = Companion.context) = AppDatabase.getDatabase(context)
@@ -84,7 +79,6 @@ class BVApp : Application() {
             androidContext(this@BVApp)
             modules(appModule)
         }
-//        firebaseAnalytics = Firebase.analytics
         LogCatcherUtil.installLogCatcher()
         initRepository()
         initProxy()

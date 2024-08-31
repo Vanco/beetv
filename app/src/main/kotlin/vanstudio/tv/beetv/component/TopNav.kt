@@ -31,12 +31,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -44,7 +46,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.ExperimentalTvFoundationApi
 import androidx.tv.material3.Button
 import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.Icon
@@ -67,7 +68,7 @@ import vanstudio.tv.beetv.activities.user.UserInfoActivity
 import vanstudio.tv.beetv.ui.theme.BVTheme
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalTvFoundationApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TopNav(
     modifier: Modifier = Modifier,
@@ -101,7 +102,7 @@ fun TopNav(
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        FocusGroup {
+//        FocusGroup {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -117,14 +118,16 @@ fun TopNav(
                     )
 
                     var selectedTabIndex by remember { mutableIntStateOf(1) }
+                    val focusRequester = remember { FocusRequester() }
 
                     TabRow(
                         selectedTabIndex = selectedTabIndex,
                         separator = { Spacer(modifier = Modifier.width(12.dp)) },
+                        modifier = Modifier.focusRestorer { focusRequester }
                     ) {
                         navList.forEachIndexed { index, tab ->
                             NavItemTab(
-                                modifier = if (index == 1) Modifier.initiallyFocused() else Modifier.restorableFocus(),
+                                modifier = if (index == 1) Modifier.focusRequester(focusRequester) else Modifier,
                                 topNavItem = tab,
                                 selected = index == selectedTabIndex,
                                 onFocus = {
@@ -141,7 +144,6 @@ fun TopNav(
                 ) {
                     SettingsIcon(
                         modifier = Modifier
-                            .restorableFocus()
                             .focusRequester(settingsButtonFocusRequester),
                         onClick = {
                             context.startActivity(Intent(context, SettingsActivity::class.java))
@@ -149,7 +151,6 @@ fun TopNav(
                     )
                     UserIcon(
                         modifier = Modifier
-                            .restorableFocus()
                             .padding(end = 12.dp),
                         isLogin = isLogin,
                         username = username,
@@ -168,7 +169,7 @@ fun TopNav(
                     )
                 }
             }
-        }
+//        }
     }
 }
 
