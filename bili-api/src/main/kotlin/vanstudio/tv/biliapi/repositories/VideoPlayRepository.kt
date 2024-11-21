@@ -52,6 +52,7 @@ class VideoPlayRepository(
         cid: Long,
         preferApiType: ApiType = ApiType.Web
     ): PlayData {
+        println("getPlayData> [aid=$aid, cid=$cid, preferApiType=$preferApiType]")
         return when (preferApiType) {
             ApiType.Web -> {
                 val playUrlData = BiliHttpApi.getVideoPlayUrl(
@@ -115,30 +116,55 @@ class VideoPlayRepository(
         enableProxy: Boolean = false,
         proxyArea: String = ""
     ): PlayData {
-        println("get pgc play data: [aid=$aid, cid=$cid, epid=$epid, preferCodec=$preferCodec, preferApiType=$preferApiType, enableProxy=$enableProxy, proxyArea=$proxyArea]")
-        return when (preferApiType) {
+        println("getPgcPlayData> [aid=$aid, cid=$cid, epid=$epid, preferCodec=$preferCodec, preferApiType=$preferApiType, enableProxy=$enableProxy, proxyArea=$proxyArea]")
+        val playData = when (preferApiType) {
             ApiType.Web -> {
-                val playUrlData = if (enableProxy) {
-                    BiliHttpProxyApi.getPgcVideoPlayUrl(
-                        av = aid,
-                        cid = cid,
-                        fnval = 4048,
-                        qn = 127,
-                        fnver = 0,
-                        fourk = 1,
-                        sessData = authRepository.sessionData
-                    )
-                } else {
-                    BiliHttpApi.getPgcVideoPlayUrl(
-                        av = aid,
-                        cid = cid,
-                        fnval = 4048,
-                        qn = 127,
-                        fnver = 0,
-                        fourk = 1,
-                        sessData = authRepository.sessionData
-                    )
-                }.getResponseData()
+                val playUrlData = try {
+                    if (enableProxy) {
+                        BiliHttpProxyApi.getPgcVideoPlayUrl(
+                            av = aid,
+                            cid = cid,
+                            fnval = 4048,
+                            qn = 127,
+                            fnver = 0,
+                            fourk = 1,
+                            sessData = authRepository.sessionData
+                        )
+                    } else {
+                        BiliHttpApi.getPgcVideoPlayUrl(
+                            av = aid,
+                            cid = cid,
+                            fnval = 4048,
+                            qn = 127,
+                            fnver = 0,
+                            fourk = 1,
+                            sessData = authRepository.sessionData
+                        )
+                    }.getResponseData()
+                } catch (e: Exception) {
+                    // some url will fail, fallback to getVideoPlayUrl, e.g. 流浪地地球2
+                    if (enableProxy) {
+                        BiliHttpProxyApi.getPgcVideoPlayUrl(
+                            av = aid,
+                            cid = cid,
+                            fnval = 4048,
+                            qn = 127,
+                            fnver = 0,
+                            fourk = 1,
+                            sessData = authRepository.sessionData
+                        )
+                    } else {
+                        BiliHttpApi.getVideoPlayUrl(
+                            av = aid,
+                            cid = cid,
+                            fnval = 4048,
+                            qn = 127,
+                            fnver = 0,
+                            fourk = 1,
+                            sessData = authRepository.sessionData
+                        )
+                    }.getResponseData()
+                }
 
                 PlayData.fromPlayUrlData(playUrlData)
             }
@@ -187,6 +213,7 @@ class VideoPlayRepository(
                 }
             }
         }
+        return playData
     }
 
     suspend fun getSubtitle(

@@ -3,9 +3,9 @@ object AppConfiguration {
     const val compileSdk = 34
     const val minSdk = 21
     const val targetSdk = 34
-    private const val major = 0
-    private const val minor = 2
-    private const val patch = 8
+    private const val major = 1
+    private const val minor = 0
+    private const val patch = 1
     private const val bugFix = 0
 
     @Suppress("KotlinConstantConditions")
@@ -17,4 +17,4 @@ object AppConfiguration {
     const val libVLCVersion = "3.0.18"
 }
 
-fun String.exec() = String(Runtime.getRuntime().exec(this).inputStream.readBytes()).trim()
+fun String.exec() = String(Runtime.getRuntime().exec(this.split(" ").toTypedArray()).inputStream.readBytes()).trim()
