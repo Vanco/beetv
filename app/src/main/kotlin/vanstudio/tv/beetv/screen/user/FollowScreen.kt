@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -39,6 +35,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.tv.foundation.lazy.grid.TvGridCells
+import androidx.tv.foundation.lazy.grid.TvGridItemSpan
+import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
+import androidx.tv.foundation.lazy.grid.itemsIndexed
 import androidx.tv.material3.Border
 import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.MaterialTheme
@@ -106,9 +106,9 @@ fun FollowScreen(
             }
         }
     ) { innerPadding ->
-        LazyVerticalGrid(
+        TvLazyVerticalGrid(
             modifier = Modifier.padding(innerPadding),
-            columns = GridCells.Fixed(3),
+            columns = TvGridCells.Fixed(3),
             contentPadding = PaddingValues(24.dp),
             verticalArrangement = Arrangement.spacedBy(18.dp),
             horizontalArrangement = Arrangement.spacedBy(20.dp)
@@ -136,7 +136,7 @@ fun FollowScreen(
                 }
             } else {
                 item(
-                    span = { GridItemSpan(3) }
+                    span = { TvGridItemSpan(3) }
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),

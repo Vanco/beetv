@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Audiotrack
 import androidx.compose.material.icons.filled.Videocam
@@ -41,6 +39,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.tv.foundation.lazy.list.TvLazyColumn
+import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItem
 import androidx.tv.material3.MaterialTheme
@@ -153,7 +153,7 @@ fun MediaCodecListItems(
         focusRequester.requestFocus(scope)
     }
 
-    LazyColumn(
+    TvLazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -229,7 +229,7 @@ fun MediaCodecDetails(
     val context = LocalContext.current
 
     if (currentCodecInfoData != null) {
-        LazyColumn(
+        TvLazyColumn(
             modifier = modifier
                 .fillMaxSize()
                 .onPreviewKeyEvent {

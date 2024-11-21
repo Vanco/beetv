@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +26,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.tv.foundation.lazy.grid.TvGridCells
+import androidx.tv.foundation.lazy.grid.TvGridItemSpan
+import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
+import androidx.tv.foundation.lazy.grid.itemsIndexed
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.Text
 import vanstudio.tv.biliapi.http.entity.search.SearchMediaResult
@@ -126,9 +126,9 @@ fun AnimeIndexScreen(
             }
         }
     ) { innerPadding ->
-        LazyVerticalGrid(
+        TvLazyVerticalGrid(
             modifier = Modifier.padding(innerPadding),
-            columns = GridCells.Fixed(6),
+            columns = TvGridCells.Fixed(6),
             contentPadding = PaddingValues(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalArrangement = Arrangement.spacedBy(24.dp)
@@ -171,7 +171,7 @@ fun AnimeIndexScreen(
             }
             if (indexResultItems.isEmpty() && noMore) {
                 item(
-                    span = { GridItemSpan(6) }
+                    span = { TvGridItemSpan(6) }
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),

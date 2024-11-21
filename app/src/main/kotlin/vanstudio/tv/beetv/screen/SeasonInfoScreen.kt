@@ -23,14 +23,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -74,6 +66,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.tv.foundation.lazy.grid.TvGridCells
+import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
+import androidx.tv.foundation.lazy.grid.itemsIndexed
+import androidx.tv.foundation.lazy.grid.rememberTvLazyGridState
+import androidx.tv.foundation.lazy.list.TvLazyColumn
+import androidx.tv.foundation.lazy.list.TvLazyRow
+import androidx.tv.foundation.lazy.list.itemsIndexed
+import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.Border
 import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
@@ -265,7 +265,7 @@ fun SeasonInfoScreen(
         Scaffold(
             modifier = modifier
         ) { innerPadding ->
-            LazyColumn(
+            TvLazyColumn(
                 modifier = Modifier
                     .padding(innerPadding)
                     .fillMaxSize(),
@@ -736,7 +736,7 @@ fun SeasonEpisodesDialog(
 
     val tabRowFocusRequester = remember { FocusRequester() }
     val videoListFocusRequester = remember { FocusRequester() }
-    val listState = rememberLazyGridState()
+    val listState = rememberTvLazyGridState()
 
     LaunchedEffect(selectedTabIndex) {
         val fromIndex = selectedTabIndex * 20
@@ -802,9 +802,9 @@ fun SeasonEpisodesDialog(
                         }
                     }
 
-                    LazyVerticalGrid(
+                    TvLazyVerticalGrid(
                         state = listState,
-                        columns = GridCells.Fixed(2),
+                        columns = TvGridCells.Fixed(2),
                         contentPadding = PaddingValues(8.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
@@ -880,7 +880,7 @@ fun SeasonEpisodeRow(
             color = titleColor
         )
 
-        LazyRow(
+        TvLazyRow(
             modifier = Modifier
                 .padding(top = 15.dp)
                 .then(focusRestorerModifiers.parentModifier),
@@ -997,7 +997,7 @@ private fun SeasonSelectorContent(
     onClickSeason: (Int) -> Unit
 ) {
     val scope = rememberCoroutineScope()
-    val rowState = rememberLazyListState()
+    val rowState = rememberTvLazyListState()
     val logger = KotlinLogging.logger {}
     val currentSeasonFocusRequester = remember { FocusRequester() }
     val bringIntoViewRequester = remember { BringIntoViewRequester() }
@@ -1091,7 +1091,7 @@ private fun SeasonSelectorContent(
             Box(
                 modifier=Modifier.align(Alignment.BottomStart)
             ){
-                LazyRow(
+                TvLazyRow(
                     modifier = Modifier.padding(bottom = 48.dp),
                     state = rowState,
                     contentPadding = PaddingValues(horizontal = 48.dp),

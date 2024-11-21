@@ -16,7 +16,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FollowingSeasonViewModel(
+class FollowingSeasonPViewModel(
     private val seasonRepository: SeasonRepository
 ) : ViewModel() {
     companion object {
@@ -33,7 +33,7 @@ class FollowingSeasonViewModel(
     private var updating = false
 
     init {
-        followingSeasonType = FollowingSeasonType.Bangumi
+        followingSeasonType = FollowingSeasonType.Cinema
         followingSeasonStatus = FollowingSeasonStatus.All
     }
 

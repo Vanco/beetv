@@ -16,7 +16,6 @@ import vanstudio.tv.beetv.util.fWarn
 import vanstudio.tv.beetv.util.swapList
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(
@@ -68,18 +67,11 @@ class FavoriteViewModel(
         }
     }
 
-    private var updateJob: Job? = null
-
-    fun updateFolderItems(force: Boolean = false) {
-        if (force) {
-            updateJob?.cancel()
-            resetPageNumber()
-            updatingFolderItems = false
-        }
+    fun updateFolderItems() {
         if (updatingFolderItems || !hasMore) return
         updatingFolderItems = true
         logger.fInfo { "Updating favorite folder items with media id: ${currentFavoriteFolderMetadata?.id}" }
-        updateJob = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 val favoriteFolderData = favoriteRepository.getFavoriteFolderData(
                     mediaId = currentFavoriteFolderMetadata!!.id,

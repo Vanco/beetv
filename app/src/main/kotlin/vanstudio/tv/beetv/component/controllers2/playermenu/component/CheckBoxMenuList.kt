@@ -3,8 +3,6 @@ package vanstudio.tv.beetv.component.controllers2.playermenu.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
@@ -13,6 +11,8 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
+import androidx.tv.foundation.lazy.list.TvLazyColumn
+import androidx.tv.foundation.lazy.list.itemsIndexed
 import vanstudio.tv.beetv.component.createCustomInitialFocusRestorerModifiers
 import vanstudio.tv.beetv.component.ifElse
 
@@ -25,7 +25,7 @@ fun CheckBoxMenuList(
     onFocusBackToParent: () -> Unit
 ) {
     val focusRestorerModifiers = createCustomInitialFocusRestorerModifiers()
-    LazyColumn(
+    TvLazyColumn(
         modifier = modifier
             .onPreviewKeyEvent {
                 println(it)
