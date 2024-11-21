@@ -141,7 +141,7 @@ class VideoPlayRepository(
                             sessData = authRepository.sessionData
                         )
                     }.getResponseData()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     // some url will fail, fallback to getVideoPlayUrl, e.g. 流浪地地球2
                     if (enableProxy) {
                         BiliHttpProxyApi.getPgcVideoPlayUrl(
