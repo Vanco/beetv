@@ -119,7 +119,7 @@ fun HomeScreen(
     val handleBack = {
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastPressBack < 1000 * 3) {
-            logger.fInfo { "Exiting bug video" }
+            logger.fInfo { "Exiting VNet video" }
             (context as Activity).finish()
         } else {
             lastPressBack = currentTime

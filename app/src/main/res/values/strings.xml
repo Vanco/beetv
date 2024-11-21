@@ -6,7 +6,7 @@
     <string name="anime_home_button_index">索引</string>
     <string name="anime_home_button_timeline">时间表</string>
 
-    <string name="app_name">V·Net</string>
+    <string name="app_name">VNet</string>
 
     <string name="audio_132k">132K</string>
     <string name="audio_192k">192K</string>
@@ -67,7 +67,7 @@
     <string name="following_season_type_bangumi">番剧</string>
     <string name="following_season_type_film_and_television">影视</string>
 
-    <string name="home_press_back_again_to_exit">再次按下返回键退出 V·Net</string>
+    <string name="home_press_back_again_to_exit">再次按下返回键退出 VNet</string>
 
     <string name="index_order_danmaku_count">弹幕数量</string>
     <string name="index_order_follow_count">追番人数</string>
