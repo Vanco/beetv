@@ -325,7 +325,7 @@ private fun SearchResultListItem(
                     seasonId = searchResult.seasonId,
                     title = searchResult.title.removeHtmlTags(),
                     cover = searchResult.cover,
-                    rating = String.format("%.1f", searchResult.star)
+                    rating = String.format(null, "%.1f", searchResult.star)
                 ),
                 onClick = onClick,
                 onLongClick = onLongClick,
